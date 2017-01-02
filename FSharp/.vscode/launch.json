@@ -2,22 +2,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": ".NET Core Launch (console)",
-            "type": "coreclr",
+            "type": "extensionHost",
             "request": "launch",
-            "preLaunchTask": "build",
-            "program": "${workspaceRoot}/bin/Debug/netcoreapp1.1/FSharp.dll",
-            "args": [],
-            "cwd": "${workspaceRoot}",
-            "externalConsole": false,
-            "stopAtEntry": false,
-            "internalConsoleOptions": "openOnSessionStart"
-        },
-        {
-            "name": ".NET Core Attach",
-            "type": "coreclr",
-            "request": "attach",
-            "processId": "${command.pickProcess}"
+            "name": "拡張機能の起動",
+            "runtimeExecutable": "${execPath}",
+            "args": [
+                "--extensionDevelopmentPath=${workspaceRoot}"
+            ],
+            "sourceMaps": true,
+            "outFiles": [
+                "${workspaceRoot}/out/**/*.js"
+            ],
+            "preLaunchTask": "npm"
         }
     ]
 }
