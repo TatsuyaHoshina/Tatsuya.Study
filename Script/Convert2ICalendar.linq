@@ -1,20 +1,28 @@
 <Query Kind="Statements" />
 
 var data = @"
+1/1 xxx
 8/8　hoge
 
 8/9　fuga
 
 12/10 piyo
+1/1 piyo2
+1/10 piyo3
 
 
 ";
 var reg = new Regex(@"^(?<date>\d{1,2}/\d{1,2})(?<content>.+)$", RegexOptions.Multiline);
 var timeStr = DateTime.Now.ToUniversalTime().ToString("yyyyMMddTHHmmssZ");
+var currentDate = new DateTime(2016, 1, 1);
 var contents = reg.Matches(data)
 	.Cast<Match>()
-	.ToDictionary(x => DateTime.Parse($"2016/{x.Groups["date"].Value}"), x => x.Groups["content"].Value.Trim())
-	.OrderBy(x => x.Key)
+	.ToDictionary(x =>
+	{
+		var date = DateTime.Parse($"{currentDate.Year}/{x.Groups["date"].Value}");
+		currentDate = currentDate > date ? date.AddYears(1) : date;
+		return currentDate;
+	}, x => x.Groups["content"].Value.Trim())
 	.Select(x =>
 $@"BEGIN:VEVENT
 DTSTART;VALUE=DATE:{x.Key.ToString("yyyyMMdd")}
