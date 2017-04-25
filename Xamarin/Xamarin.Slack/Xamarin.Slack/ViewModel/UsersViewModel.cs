@@ -20,7 +20,7 @@ namespace Xamarin.Slack.ViewModel
 		public event PropertyChangedEventHandler PropertyChanged;
 		public ObservableCollection<User> Users { get; set; }
 		public Command GetUsersCommand { get; set; }
-		const string token = "";
+		const string token = "xoxb-115136766338-j610QCwITqpSfNpDSBvQMjC6";
 
 		public UsersViewModel()
 		{
